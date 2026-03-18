@@ -11,7 +11,8 @@ CORS(app)
 
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
-def ask_ai(prompt):    response = client.chat.completions.create(
+def ask_ai(prompt):
+    response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[
             {"role": "system", "content": "You are an intelligent learning assistant."},
@@ -44,4 +45,4 @@ def quiz():
     return jsonify({"questions": questions})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
