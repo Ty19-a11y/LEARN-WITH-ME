@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from groq import Groq
 import os
@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='.')
 CORS(app)
 
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
@@ -21,6 +21,10 @@ def ask_ai(prompt):
         temperature=0.5
     )
     return response.choices[0].message.content
+
+@app.route("/")
+def home():
+    return send_from_directory('.', 'index.html')
 
 @app.route("/summarize", methods=["POST"])
 def summarize():
