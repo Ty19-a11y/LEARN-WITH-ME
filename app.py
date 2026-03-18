@@ -9,8 +9,9 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-client = Groq(api_key=os.environ.get("GROQ_API_KEY"))def ask_ai(prompt):
-    response = client.chat.completions.create(
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+
+def ask_ai(prompt):    response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[
             {"role": "system", "content": "You are an intelligent learning assistant."},
